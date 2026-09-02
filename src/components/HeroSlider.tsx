@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { preload } from 'react-dom'
 
 const IMAGES = [
   'https://images.pexels.com/photos/1715184/pexels-photo-1715184.jpeg?auto=compress&cs=tinysrgb&w=1200',
@@ -13,23 +12,13 @@ const IMAGES = [
 ]
 
 export default function HeroSlider() {
-  preload(IMAGES[0], { as: 'image' })
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
-    let timer: NodeJS.Timeout
-    
-    // Delay start to allow Lighthouse to reach CPU idle
-    const initialDelay = setTimeout(() => {
-      timer = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % IMAGES.length)
-      }, 5000)
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % IMAGES.length)
     }, 5000)
-    
-    return () => {
-      clearTimeout(initialDelay)
-      if (timer) clearInterval(timer)
-    }
+    return () => clearInterval(timer)
   }, [])
 
   return (
