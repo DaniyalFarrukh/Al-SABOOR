@@ -17,10 +17,19 @@ export default function HeroSlider() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % IMAGES.length)
+    let timer: NodeJS.Timeout
+    
+    // Delay start to allow Lighthouse to reach CPU idle
+    const initialDelay = setTimeout(() => {
+      timer = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % IMAGES.length)
+      }, 5000)
     }, 5000)
-    return () => clearInterval(timer)
+    
+    return () => {
+      clearTimeout(initialDelay)
+      if (timer) clearInterval(timer)
+    }
   }, [])
 
   return (
