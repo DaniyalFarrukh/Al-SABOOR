@@ -1,0 +1,4 @@
+sku,name,category,subcategory,brand,price,stock,image_urls
+HLM-FF-001,LS2 Stream Evo,Helmets,Full Face Helmets,LS2,15000,25,"https://example.com/img1.jpg,https://example.com/img2.jpg"
+OIL-10W-40,Motul 7100 4T,Engine Oils,10W-40 Synthetic,Motul,3500,100,
+GLOVES-01,Pro Biker Gloves,Accessories,,Pro Biker,1200,50,https://example.com/gloves.jpg
