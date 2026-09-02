@@ -5,6 +5,8 @@ import { createClient } from '@/utils/supabase/server'
 // Helper to check if current user has a specific permission
 export async function hasPermission(permission: string) {
   return true; // TEMPORARILY BYPASSED FOR LOCAL DEV
+  /*
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) return false
@@ -18,6 +20,7 @@ export async function hasPermission(permission: string) {
   const roles = profile?.roles as any
   const permissions = roles?.permissions || []
   return permissions.includes(permission) || permissions.includes('superadmin')
+  */
 }
 
 export async function getDashboardStats(startDate?: Date, endDate?: Date) {

@@ -12,7 +12,9 @@ export async function getCustomers(searchQuery?: string, filterByRole: 'customer
     first_name,
     last_name,
     phone,
+    phone,
     is_blocked,
+    is_approved,
     created_at,
     role_id,
     roles ( name ),
@@ -33,9 +35,9 @@ export async function getCustomers(searchQuery?: string, filterByRole: 'customer
   let filteredData = data;
   
   if (filterByRole === 'customer') {
-    filteredData = data.filter(p => !p.roles || (p.roles.name !== 'Retailer' && p.roles.name !== 'Wholesaler'));
+    filteredData = data.filter(p => !p.roles || ((p.roles as any).name !== 'Retailer' && (p.roles as any).name !== 'Wholesaler'));
   } else if (filterByRole === 'wholesaler') {
-    filteredData = data.filter(p => p.roles && (p.roles.name === 'Retailer' || p.roles.name === 'Wholesaler') && p.is_approved);
+    filteredData = data.filter(p => p.roles && ((p.roles as any).name === 'Retailer' || (p.roles as any).name === 'Wholesaler') && p.is_approved);
   }
 
   return filteredData.map(profile => {

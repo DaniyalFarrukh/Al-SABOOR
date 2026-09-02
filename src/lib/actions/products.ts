@@ -414,8 +414,8 @@ export async function bulkCreateProducts(rows: {
       if (missingBrands.length > 0) {
         const { data: newBrands } = await supabase.from('brands').insert(
           missingBrands.map(name => ({
-            name,
-            slug: name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+            name: name!,
+            slug: name!.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
           }))
         ).select('id, name')
         

@@ -30,7 +30,7 @@ export async function login(prevState: any, formData: FormData) {
       .eq('id', user.id)
       .single()
 
-    if (profile?.roles?.name === 'Retailer' && profile.is_approved === false) {
+    if ((profile?.roles as any)?.name === 'Retailer' && profile.is_approved === false) {
       await supabase.auth.signOut()
       return { error: 'Your Retailer account is pending admin approval.' }
     }

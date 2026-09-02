@@ -52,7 +52,10 @@ export default async function AdminCategoriesPage() {
                   <Link href={`/admin/categories/${cat.id}`} className="btn-secondary" style={{ padding: '0.25rem 0.5rem', display: 'inline-flex', alignItems: 'center' }}>
                     <Edit size={14} />
                   </Link>
-                  <form action={deleteCategory.bind(null, cat.id)}>
+                  <form action={async () => {
+                    'use server'
+                    await deleteCategory(cat.id)
+                  }}>
                     <button type="submit" className="btn-danger" style={{ padding: '0.25rem 0.5rem' }}>
                       <Trash2 size={14} />
                     </button>
