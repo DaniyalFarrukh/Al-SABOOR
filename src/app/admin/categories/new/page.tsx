@@ -19,7 +19,7 @@ export default async function NewCategoryPage() {
         <h1 className="admin-title">Create Category</h1>
       </div>
       
-      <form action={action}>
+      <form action={action} encType="multipart/form-data">
         <div className="form-group">
           <label className="form-label" htmlFor="name">Category Name</label>
           <input type="text" id="name" name="name" className="form-input" required />
@@ -43,6 +43,11 @@ export default async function NewCategoryPage() {
         <div className="form-group">
           <label className="form-label" htmlFor="description">Description</label>
           <textarea id="description" name="description" className="form-input" rows={4}></textarea>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label" htmlFor="image">Category Image</label>
+          <input type="file" id="image" name="image" accept="image/*" className="form-input" />
         </div>
 
         <div className="form-group">

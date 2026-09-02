@@ -27,7 +27,36 @@ export async function createCategory(formData: FormData) {
     return { error: parsed.error.format() }
   }
 
-  const { error } = await supabase.from('categories').insert([parsed.data])
+  let image_url = null;
+  const image = formData.get('image') as File | null;
+  
+  if (image && image.size > 0 && image.name) {
+    const ext = image.name.split('.').pop() || 'jpg';
+    const filename = `category_${crypto.randomUUID()}.${ext}`;
+    
+    let { data: uploadData, error: uploadErr } = await supabase.storage
+      .from('product-photos')
+      .upload(filename, image, {
+        cacheControl: '3600',
+        upsert: false
+      });
+      
+    if (uploadErr && uploadErr.message.includes('not found')) {
+      await supabase.storage.createBucket('product-photos', { public: true });
+      const retry = await supabase.storage.from('product-photos').upload(filename, image, { cacheControl: '3600', upsert: false });
+      uploadData = retry.data;
+      uploadErr = retry.error;
+    }
+
+    if (!uploadErr && uploadData) {
+      const { data: { publicUrl } } = supabase.storage
+        .from('product-photos')
+        .getPublicUrl(uploadData.path);
+      image_url = publicUrl;
+    }
+  }
+
+  const { error } = await supabase.from('categories').insert([{ ...parsed.data, image_url }])
   if (error) return { error: error.message }
   
   revalidatePath('/admin/categories')
@@ -68,10 +97,40 @@ export async function updateCategory(id: string, formData: FormData) {
     return { error: parsed.error.format() }
   }
 
-  const { error } = await supabase.from('categories').update(parsed.data).eq('id', id)
+  const updateData: any = { ...parsed.data };
+  const image = formData.get('image') as File | null;
+  
+  if (image && image.size > 0 && image.name) {
+    const ext = image.name.split('.').pop() || 'jpg';
+    const filename = `category_${crypto.randomUUID()}.${ext}`;
+    
+    let { data: uploadData, error: uploadErr } = await supabase.storage
+      .from('product-photos')
+      .upload(filename, image, {
+        cacheControl: '3600',
+        upsert: false
+      });
+      
+    if (uploadErr && uploadErr.message.includes('not found')) {
+      await supabase.storage.createBucket('product-photos', { public: true });
+      const retry = await supabase.storage.from('product-photos').upload(filename, image, { cacheControl: '3600', upsert: false });
+      uploadData = retry.data;
+      uploadErr = retry.error;
+    }
+
+    if (!uploadErr && uploadData) {
+      const { data: { publicUrl } } = supabase.storage
+        .from('product-photos')
+        .getPublicUrl(uploadData.path);
+      updateData.image_url = publicUrl;
+    }
+  }
+
+  const { error } = await supabase.from('categories').update(updateData).eq('id', id)
   if (error) return { error: error.message }
   
   revalidatePath('/admin/categories')
+  revalidatePath(`/admin/categories/${id}`)
   return { success: true }
 }
 

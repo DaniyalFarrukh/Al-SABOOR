@@ -24,7 +24,7 @@ export default async function EditCategoryPage(props: { params: Promise<{ id: st
         <h1 className="admin-title">Edit Category: {category.name}</h1>
       </div>
       
-      <form action={action}>
+      <form action={action} encType="multipart/form-data">
         <div className="form-group">
           <label className="form-label" htmlFor="name">Category Name</label>
           <input type="text" id="name" name="name" className="form-input" defaultValue={category.name} required />
@@ -48,6 +48,16 @@ export default async function EditCategoryPage(props: { params: Promise<{ id: st
         <div className="form-group">
           <label className="form-label" htmlFor="description">Description</label>
           <textarea id="description" name="description" className="form-input" rows={4} defaultValue={category.description || ''}></textarea>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label" htmlFor="image">Category Image</label>
+          {category.image_url && (
+            <div style={{ marginBottom: '1rem' }}>
+              <img src={category.image_url} alt="Current Image" style={{ maxWidth: '100px', borderRadius: '8px', border: '1px solid var(--border)' }} />
+            </div>
+          )}
+          <input type="file" id="image" name="image" accept="image/*" className="form-input" />
         </div>
 
         <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>

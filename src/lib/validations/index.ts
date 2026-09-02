@@ -10,6 +10,7 @@ export const categorySchema = z.object({
   slug: z.string().min(2, 'Slug must be at least 2 characters'),
   description: z.string().optional(),
   parent_id: z.string().uuid().optional().nullable(),
+  image_url: z.string().optional().nullable(),
   is_active: z.boolean().default(true)
 })
 

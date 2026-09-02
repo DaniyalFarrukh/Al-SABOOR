@@ -68,30 +68,36 @@ export default async function HomePage() {
             width: '100%'
           }}>
             {categories.slice(0, 12).map((cat: any) => {
-              let Icon = Package;
-              const nameLower = cat.name.toLowerCase();
-              if (nameLower.includes('exhaust')) Icon = Wind;
-              else if (nameLower.includes('light') || nameLower.includes('led')) Icon = Lightbulb;
-              else if (nameLower.includes('helmet')) Icon = HardHat;
-              else if (nameLower.includes('tire') || nameLower.includes('tyre') || nameLower.includes('wheel')) Icon = CircleDashed;
-              else if (nameLower.includes('battery')) Icon = Battery;
-              else if (nameLower.includes('chain')) Icon = Link2;
-              else if (nameLower.includes('engine') || nameLower.includes('part') || nameLower.includes('oil')) Icon = Cog;
-
               return (
-                <Link key={cat.id} href={`/products?category=${cat.slug}`} className="box-category-card" style={{
+                <Link key={cat.id} href={`/products?category=${cat.slug}`} className="photo-category-card" style={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  justifyContent: 'flex-start',
                   gap: '12px',
                   textDecoration: 'none',
-                  height: '110px',
-                  backgroundColor: '#fff',
-                  borderRadius: '8px'
+                  padding: '8px'
                 }}>
-                  <Icon size={32} color="var(--dk)" strokeWidth={1.5} />
-                  <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--dk)', textAlign: 'center' }}>
+                  <div style={{
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--muted)',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                    border: '2px solid transparent',
+                    transition: 'border-color 0.2s ease'
+                  }}>
+                    {cat.image_url ? (
+                      <img src={cat.image_url} alt={cat.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <span style={{ color: 'var(--muted-foreground)', fontSize: '10px', textTransform: 'uppercase', textAlign: 'center', padding: '0 4px' }}>Photo</span>
+                    )}
+                  </div>
+                  <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--foreground)', textAlign: 'center' }}>
                     {cat.name}
                   </span>
                 </Link>
