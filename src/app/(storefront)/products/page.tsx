@@ -56,6 +56,48 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
   return (
     <div className="storefront-container" style={{ padding: '2rem 1rem' }}>
       
+      {/* Horizontal Category Bar */}
+      <div style={{ 
+        backgroundColor: '#3b3b3b', 
+        borderRadius: '6px', 
+        display: 'flex', 
+        alignItems: 'center', 
+        marginBottom: '2rem',
+        overflowX: 'auto',
+        whiteSpace: 'nowrap',
+        scrollbarWidth: 'none'
+      }}>
+        <style>{`
+          .horizontal-cat-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            padding: 1rem 1.25rem;
+            display: inline-block;
+            transition: opacity 0.2s;
+          }
+          .horizontal-cat-link.highlighted {
+            background-color: #1e3a8a; /* Deep blue */
+          }
+          .horizontal-cat-link:hover {
+            opacity: 0.8;
+          }
+          .horizontal-cat-bar::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        
+        <Link href="/products" className="horizontal-cat-link">HOME</Link>
+        <Link href="/products?category=shop-by-bike" className="horizontal-cat-link">SHOP BY BIKE</Link>
+        <Link href="/products?category=helmets" className="horizontal-cat-link">HELMETS</Link>
+        <Link href="/products?category=riding-gear" className="horizontal-cat-link">RIDING GEAR</Link>
+        <Link href="/products?category=engine-oils" className="horizontal-cat-link highlighted">ENGINE OILS</Link>
+        <Link href="/products?category=exhaust" className="horizontal-cat-link highlighted">EXHAUSTS</Link>
+        <Link href="/products?category=tires" className="horizontal-cat-link highlighted">TIRES</Link>
+        <Link href="/products?category=performance-parts" className="horizontal-cat-link">PERFORMANCE PARTS</Link>
+      </div>
       {/* Page Header */}
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '0.5rem' }}>
