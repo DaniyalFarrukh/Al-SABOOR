@@ -195,6 +195,29 @@ button {
   border-bottom: none;
 }
 
+/* Admin Mobile Overrides */
+@media (max-width: 768px) {
+  .admin-header {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .admin-table {
+    min-width: 600px;
+  }
+  .admin-table th, 
+  .admin-table td {
+    white-space: nowrap;
+  }
+  
+  /* Automatically stack all hardcoded inline grids on mobile */
+  .admin-main [style*="grid-template-columns"],
+  .admin-main [style*="gridTemplateColumns"],
+  .storefront-container [style*="grid-template-columns"],
+  .storefront-container [style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* Forms */
 .form-group {
   margin-bottom: 1.5rem;
