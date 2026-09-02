@@ -10,6 +10,7 @@ export default function HeaderCartButton({ cartItemCount }: { cartItemCount: num
   return (
     <button 
       onClick={openDrawer}
+      aria-label="View Cart"
       className="header-cart-btn"
       style={{
         position: 'relative',

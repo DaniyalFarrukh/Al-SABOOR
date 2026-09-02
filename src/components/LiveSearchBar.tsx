@@ -78,7 +78,7 @@ export default function LiveSearchBar() {
             boxSizing: 'border-box',
           }}
         />
-        <button type="submit" className="search-submit-btn" style={{
+        <button type="submit" aria-label="Search" className="search-submit-btn" style={{
           backgroundColor: 'var(--accent)',
           color: 'var(--accent-fg)',
           border: 'none',

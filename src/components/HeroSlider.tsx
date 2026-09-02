@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 
 const IMAGES = [
@@ -55,14 +56,20 @@ export default function HeroSlider() {
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundImage: `url("${src}")`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
               opacity: currentIndex === idx ? 0.6 : 0,
               transition: 'opacity 1s ease-in-out',
               zIndex: 0,
             }}
-          />
+          >
+            <Image
+              src={src}
+              alt={`Hero Banner ${idx + 1} - Motorbike Accessories`}
+              fill
+              priority={idx === 0}
+              style={{ objectFit: 'cover' }}
+              sizes="(max-width: 768px) 100vw, 1400px"
+            />
+          </div>
         ))}
 
         {/* Content Overlay */}

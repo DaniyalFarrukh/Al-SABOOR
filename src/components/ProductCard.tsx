@@ -24,18 +24,10 @@ export default function ProductCard({ product, isWholesaler }: { product: any, i
   return (
     <Link
       href={`/product/${encodeURIComponent(product.slug)}`}
+      className="product-card"
       style={{
-        background: '#fff',
-        border: '1px solid var(--border)',
-        borderRadius: 'var(--radius)',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
         textDecoration: 'none',
         color: 'inherit',
-        position: 'relative',
-        transition: 'border-color .25s, box-shadow .25s, transform .25s',
-        boxShadow: '0 2px 8px rgba(0,0,0,.04)',
         width: '100%',
         maxWidth: '100%',
         boxSizing: 'border-box',

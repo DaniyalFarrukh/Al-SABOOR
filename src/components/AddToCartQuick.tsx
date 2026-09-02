@@ -43,7 +43,7 @@ export default function AddToCartQuick({ productId }: { productId: string }) {
         textAlign: 'center',
         letterSpacing: '0.3px',
         textTransform: 'uppercase',
-        transition: 'all 0.15s',
+        transition: 'opacity 0.15s, background-color 0.15s, transform 0.15s',
         opacity: isAdding ? 0.7 : 1
       }}
     >

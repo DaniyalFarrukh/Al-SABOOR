@@ -187,7 +187,7 @@ export default async function StorefrontLayout({ children }: { children: React.R
 
         {/* Floating WhatsApp Button */}
         <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000 }}>
-          <a href="https://wa.me/923218405029" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/923218405029" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp"
             style={{
               display: 'flex',
               alignItems: 'center',

@@ -432,18 +432,44 @@ button {
   display: flex;
   flex-direction: column;
   background: #fff;
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  overflow: hidden;
-  transition: border-color .25s, box-shadow .25s, transform .25s;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,.04);
 }
 
+.product-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 10;
+}
+
+.product-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(230,57,70,.4);
+  box-shadow: 0 4px 20px rgba(230,57,70,.12);
+  border-radius: var(--radius);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 10;
+}
+
 .product-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(230,57,70,.12);
-  border-color: rgba(230,57,70,.4);
+}
+.product-card:hover::before {
+  opacity: 0;
+}
+.product-card:hover::after {
+  opacity: 1;
 }
 
 .product-image-container {
