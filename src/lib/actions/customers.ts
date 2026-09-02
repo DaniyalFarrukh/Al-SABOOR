@@ -54,16 +54,16 @@ export async function getCustomers(searchQuery?: string, filterByRole: 'customer
 }
 
 export async function getCustomerDetails(id: string) {
-  const supabase = await createClient()
+  const adminClient = createAdminClient()
   
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', id).single()
+  const { data: profile } = await adminClient.from('profiles').select('*').eq('id', id).single()
   
-  const { data: orders } = await supabase.from('orders')
+  const { data: orders } = await adminClient.from('orders')
     .select('*, order_items(*, products(name))')
     .eq('user_id', id)
     .order('created_at', { ascending: false })
 
-  const { data: reviews } = await supabase.from('reviews')
+  const { data: reviews } = await adminClient.from('reviews')
     .select('*, products(name)')
     .eq('user_id', id)
     .order('created_at', { ascending: false })
@@ -72,14 +72,14 @@ export async function getCustomerDetails(id: string) {
 }
 
 export async function updateCustomerNotes(id: string, notes: string) {
-  const supabase = await createClient()
-  await supabase.from('profiles').update({ admin_notes: notes }).eq('id', id)
+  const adminClient = createAdminClient()
+  await adminClient.from('profiles').update({ admin_notes: notes }).eq('id', id)
   revalidatePath(`/admin/customers/${id}`)
 }
 
 export async function toggleCustomerBlock(id: string, isBlocked: boolean) {
-  const supabase = await createClient()
-  await supabase.from('profiles').update({ is_blocked: !isBlocked }).eq('id', id)
+  const adminClient = createAdminClient()
+  await adminClient.from('profiles').update({ is_blocked: !isBlocked }).eq('id', id)
   revalidatePath(`/admin/customers/${id}`)
   revalidatePath('/admin/customers')
 }
