@@ -149,6 +149,13 @@ export default async function StorefrontLayout({ children }: { children: React.R
           .category-dropdown-link:last-child {
             border-bottom: none;
           }
+          .nav-link {
+            transition: color 0.2s, background-color 0.2s;
+          }
+          .nav-link:hover {
+            color: var(--accent) !important;
+            background-color: rgba(255,255,255,0.03);
+          }
         `}</style>
         <div style={{ backgroundColor: '#111', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'stretch', height: '54px' }}>
@@ -186,10 +193,12 @@ export default async function StorefrontLayout({ children }: { children: React.R
 
             {/* Nav links */}
             {[
-              { label: 'Shop All', href: '/products' },
-              { label: 'Recently Restocked', href: '/products?sort=newest' },
-              { label: 'Track Order', href: '/track-order' },
-              { label: 'Blog', href: '/blog' },
+              { label: 'New Arrivals', href: '/products?sort=newest' },
+              { label: 'Helmets', href: '/products?category=helmets' },
+              { label: 'Engine Oils', href: '/products?category=engine-oils' },
+              { label: 'Exhausts', href: '/products?category=exhaust' },
+              { label: 'Tires', href: '/products?category=tires' },
+              { label: 'Accessories', href: '/products?category=accessories' },
             ].map(link => (
               <Link
                 key={link.href}
@@ -198,21 +207,19 @@ export default async function StorefrontLayout({ children }: { children: React.R
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  padding: '0 1.5rem',
+                  padding: '0 1.25rem',
                   height: '100%',
                   fontSize: '14px',
                   fontWeight: 600,
-                  color: 'rgba(255,255,255,0.85)',
-                  borderRight: '1px solid rgba(255,255,255,0.1)',
+                  color: 'rgba(255,255,255,0.7)',
                   whiteSpace: 'nowrap',
                   textDecoration: 'none',
-                  transition: 'color 0.2s, background-color 0.2s',
                 }}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/products?sale=true" style={{ display: 'flex', alignItems: 'center', padding: '0 1.5rem', height: '100%', fontSize: '14px', fontWeight: 700, color: '#f87171', whiteSpace: 'nowrap', textDecoration: 'none', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
+            <Link href="/products?sale=true" className="nav-link" style={{ display: 'flex', alignItems: 'center', padding: '0 1.5rem', height: '100%', fontSize: '14px', fontWeight: 700, color: '#f87171', whiteSpace: 'nowrap', textDecoration: 'none', marginLeft: 'auto' }}>
               🏷️ SALE
             </Link>
           </div>
