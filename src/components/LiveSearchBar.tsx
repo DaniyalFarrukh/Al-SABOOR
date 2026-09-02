@@ -78,7 +78,7 @@ export default function LiveSearchBar() {
             boxSizing: 'border-box',
           }}
         />
-        <button type="submit" style={{
+        <button type="submit" className="search-submit-btn" style={{
           backgroundColor: 'var(--accent)',
           color: 'var(--accent-fg)',
           border: 'none',
@@ -97,7 +97,7 @@ export default function LiveSearchBar() {
           boxSizing: 'border-box',
         }}>
           {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />} 
-          <span>Search</span>
+          <span className="search-btn-text">Search</span>
         </button>
       </form>
 

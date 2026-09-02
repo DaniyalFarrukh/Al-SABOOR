@@ -203,26 +203,37 @@ export default async function StorefrontLayout({ children }: { children: React.R
           }
           @media (max-width: 768px) {
             .main-header-row {
-              flex-wrap: wrap;
-              gap: 0.5rem;
-              padding: 0.75rem 1rem !important;
-              justify-content: space-between;
+              flex-wrap: nowrap;
+              gap: 0.6rem;
+              padding: 0.6rem 0.75rem !important;
+              min-height: auto;
             }
             .search-bar-wrapper {
-              order: 3;
-              width: 100%;
-              flex: 0 0 100%;
-              margin-top: 0.5rem;
+              flex: 1;
+              min-width: 0;
+              margin-top: 0;
             }
             .logo-img {
-              max-height: 48px !important;
+              max-height: 40px !important;
+            }
+            .search-btn-text,
+            .cart-btn-text,
+            .account-link-text {
+              display: none;
+            }
+            .header-cart-btn {
+              padding: 0.45rem 0.6rem !important;
+              gap: 0 !important;
+            }
+            .search-submit-btn {
+              padding: 0.5rem 0.75rem !important;
             }
           }
         `}</style>
-        <div className="main-header-row" style={{ maxWidth: '1340px', margin: '0 auto', padding: '1rem 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
+        <div className="main-header-row" style={{ maxWidth: '1340px', margin: '0 auto', padding: '1rem 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1.5rem' }}>
 
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 1, textDecoration: 'none' }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
             <img
               src="/logo_wb.png"
               alt="AL SABOOR Traders"
@@ -237,7 +248,7 @@ export default async function StorefrontLayout({ children }: { children: React.R
           </div>
 
           {/* Right Icons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
             {(user?.profile?.roles?.name === 'Retailer' || user?.profile?.roles?.name === 'Wholesaler') && (
               <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#dcfce7', color: '#166534', padding: '0.35rem 0.75rem', borderRadius: '4px', fontSize: '11px', fontWeight: 700, whiteSpace: 'nowrap' }}>
                 <CheckCircle size={12} style={{ marginRight: '4px' }} /> Wholesaler
@@ -245,7 +256,7 @@ export default async function StorefrontLayout({ children }: { children: React.R
             )}
             <Link href={user ? "/account" : "/login"} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', color: 'rgba(255,255,255,0.65)', fontSize: '11px', fontWeight: 600, textDecoration: 'none' }}>
               <User size={22} style={{ color: 'var(--accent)' }} />
-              Account
+              <span className="account-link-text">Account</span>
             </Link>
             <HeaderCartButton cartItemCount={cartItemCount} />
           </div>

@@ -10,6 +10,7 @@ export default function HeaderCartButton({ cartItemCount }: { cartItemCount: num
   return (
     <button 
       onClick={openDrawer}
+      className="header-cart-btn"
       style={{
         position: 'relative',
         display: 'flex',
@@ -28,7 +29,7 @@ export default function HeaderCartButton({ cartItemCount }: { cartItemCount: num
       }}
     >
       <ShoppingCart size={18} />
-      CART
+      <span className="cart-btn-text">CART</span>
       {cartItemCount > 0 && (
         <span style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: 'var(--accent)', color: 'var(--accent-fg)', fontSize: '10px', fontWeight: 800, width: '18px', height: '18px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
           {cartItemCount}
