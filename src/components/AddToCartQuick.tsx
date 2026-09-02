@@ -28,24 +28,7 @@ export default function AddToCartQuick({ productId }: { productId: string }) {
     <button 
       onClick={handleAddToCart}
       disabled={isAdding}
-      style={{
-        marginTop: '10px',
-        width: '100%',
-        backgroundColor: 'transparent',
-        color: '#1a1b1c',
-        border: '1.5px solid #1a1b1c',
-        borderRadius: '6px',
-        padding: '8px 12px',
-        fontSize: '12px',
-        fontWeight: 700,
-        cursor: isAdding ? 'not-allowed' : 'pointer',
-        fontFamily: 'inherit',
-        textAlign: 'center',
-        letterSpacing: '0.3px',
-        textTransform: 'uppercase',
-        transition: 'opacity 0.15s, background-color 0.15s, transform 0.15s',
-        opacity: isAdding ? 0.7 : 1
-      }}
+      className="add-to-cart-quick-btn"
     >
       {isAdding ? 'Adding...' : 'ADD TO CART'}
     </button>

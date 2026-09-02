@@ -3,6 +3,7 @@ import { getCategories } from '@/lib/actions/categories'
 import ProductCard from '@/components/ProductCard'
 import Link from 'next/link'
 import { Filter, ChevronUp } from 'lucide-react'
+import MobileFilterWrapper from '@/components/MobileFilterWrapper'
 import type { Metadata } from 'next'
 import { getUser } from '@/lib/actions/auth'
 import { createClient } from '@/utils/supabase/server'
@@ -64,10 +65,11 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
         <p style={{ color: 'var(--muted-foreground)' }}>{count} products found</p>
       </div>
 
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+      <div className="product-page-layout">
         
-        {/* Sidebar Filters (Desktop) */}
-        <aside style={{ width: '260px', minWidth: '260px', flexShrink: 0, display: 'flex', flexDirection: 'column' }} className="hide-mobile">
+        {/* Sidebar Filters */}
+        <MobileFilterWrapper>
+          <aside className="sidebar-filters">
           <div className="custom-scrollbar" style={{ position: 'sticky', top: '6rem', width: '100%', boxSizing: 'border-box', backgroundColor: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border)', boxShadow: '0 4px 20px rgba(0,0,0,0.03)', maxHeight: 'calc(100vh - 8rem)', overflowY: 'auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '1rem', width: '100%', boxSizing: 'border-box' }}>
               <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '1.1rem', margin: 0, whiteSpace: 'nowrap', flexShrink: 0 }}>
@@ -180,9 +182,9 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
                 })}
               </ul>
             </div>
-            
-          </div>
-        </aside>
+            </div>
+          </aside>
+        </MobileFilterWrapper>
 
         {/* Product Grid */}
         <div style={{ flex: 1, minWidth: 0 }}>
