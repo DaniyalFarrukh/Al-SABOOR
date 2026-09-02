@@ -82,24 +82,18 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
               .filter-link {
                 display: flex;
                 align-items: center;
-                padding: 0.5rem 0.75rem;
-                border-radius: 6px;
-                color: var(--foreground);
+                padding: 0.6rem 0;
+                color: #333;
                 text-decoration: none;
-                transition: all 0.2s;
-                font-weight: 500;
+                font-size: 0.95rem;
+                transition: color 0.2s;
               }
               .filter-link:hover {
-                background-color: var(--muted);
-                color: var(--primary);
-                transform: translateX(4px);
+                color: #000;
               }
               .filter-link.active {
-                background-color: rgba(249, 115, 22, 0.1);
-                color: var(--primary);
+                color: #000;
                 font-weight: 700;
-                border-left: 3px solid var(--primary);
-                padding-left: calc(0.75rem - 3px);
               }
               .category-details summary::-webkit-details-marker {
                 display: none;
@@ -132,9 +126,17 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
               </ul>
             </div>
 
-            <div>
-              <h4 style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.75rem', textTransform: 'uppercase', color: 'var(--muted-foreground)', letterSpacing: '0.5px' }}>Categories</h4>
-              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem', fontSize: '0.9rem' }}>
+            <div style={{ marginBottom: '2.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #666', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
+                <h4 style={{ fontSize: '0.9rem', fontWeight: 800, textTransform: 'uppercase', color: '#111', margin: 0, letterSpacing: '0.5px' }}>CATEGORIES</h4>
+                <ChevronUp size={18} color="#666" />
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0', fontSize: '0.9rem' }}>
+                <li>
+                  <Link href="/products" className={`filter-link ${!searchParams.category ? 'active' : ''}`}>
+                    Home
+                  </Link>
+                </li>
                 {categories?.filter(c => c.is_active && !c.parent_id).map(parent => {
                   const children = categories?.filter(c => c.is_active && c.parent_id === parent.id) || [];
                   const hasChildren = children.length > 0;
@@ -155,11 +157,13 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
                   return (
                     <li key={parent.id}>
                       <details open={isOpen} className="category-details">
-                        <summary className={`filter-link ${isParentActive ? 'active' : ''}`} style={{ cursor: 'pointer', justifyContent: 'space-between' }}>
+                        <summary className={`filter-link ${isParentActive ? 'active' : ''}`} style={{ cursor: 'pointer', justifyContent: 'space-between', display: 'flex', alignItems: 'center' }}>
                           <Link href={`?category=${parent.slug}`} style={{ color: 'inherit', textDecoration: 'none', flex: 1 }}>
                             {parent.name}
                           </Link>
-                          <span style={{ fontSize: '10px', color: 'var(--muted-foreground)', padding: '4px', transform: isOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }}>▶</span>
+                          <span style={{ fontSize: '1.4rem', fontWeight: 600, color: '#000', padding: '0 4px', lineHeight: 1 }}>
+                            {isOpen ? '−' : '+'}
+                          </span>
                         </summary>
                         <ul style={{ listStyle: 'none', padding: '0.25rem 0 0.5rem 1rem', margin: 0, display: 'flex', flexDirection: 'column', gap: '0.25rem', borderLeft: '1px solid var(--border)', marginLeft: '1rem', marginTop: '0.25rem' }}>
                           {children.map(child => (
