@@ -204,13 +204,14 @@ export default async function HomePage() {
             {/* Horizontal Grid / Carousel */}
             <div style={{ 
               display: 'flex', 
+              alignItems: 'stretch',
               gap: '20px', 
               overflowX: 'auto',
               paddingBottom: '20px', /* space for scrollbar */
               scrollSnapType: 'x mandatory'
             }}>
               {section.products.map((product: any) => (
-                <div key={product.id} style={{ minWidth: '240px', maxWidth: '280px', flex: '0 0 auto', scrollSnapAlign: 'start' }}>
+                <div key={product.id} style={{ minWidth: '240px', maxWidth: '280px', flex: '0 0 auto', scrollSnapAlign: 'start', display: 'flex' }}>
                   <ProductCard product={product} isWholesaler={isWholesaler} />
                 </div>
               ))}
