@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ArrowRight, Truck, ShieldCheck, CreditCard, Headset, Wind, Lightbulb, HardHat, CircleDashed, Battery, Package, Link2, Cog } from 'lucide-react'
 import { getHomepageData } from '@/lib/actions/storefront'
 import ProductCard from '@/components/ProductCard'
+import ProductRowCarousel from '@/components/ProductRowCarousel'
 import HeroSlider from '@/components/HeroSlider'
 import { getUser } from '@/lib/actions/auth'
 
@@ -12,16 +13,6 @@ export default async function HomePage() {
   const user = await getUser()
   const isWholesaler = user?.profile?.roles?.name === 'Retailer' || user?.profile?.roles?.name === 'Wholesaler'
 
-  // The user requested specific bike-related category names to be hardcoded so the homepage is populated without car/jeep stuff.
-  // We'll split the latest products into chunks to simulate populated categories for these specific names.
-  const chunk1 = latestProducts.slice(0, 8);
-  const chunk2 = latestProducts.slice(8, 16);
-  const chunk3 = latestProducts.slice(16, 24);
-
-  const hardcodedSections = [];
-  if (chunk1.length > 0) hardcodedSections.push({ title: "BIKE ACCESSORIES", slug: "accessories", products: chunk1 });
-  if (chunk2.length > 0) hardcodedSections.push({ title: "HELMETS", slug: "helmets", products: chunk2 });
-  if (chunk3.length > 0) hardcodedSections.push({ title: "ENGINE OILS", slug: "engine-oils", products: chunk3 });
 
   return (
     <div>
@@ -172,10 +163,10 @@ export default async function HomePage() {
       </div>
 
       {/* ══════════════════════════════════════
-          CURATED CATEGORY SECTIONS
+          CURATED PRODUCTS CAROUSEL
       ══════════════════════════════════════ */}
-      {hardcodedSections.map((section, idx) => (
-        <div key={idx} style={{ background: 'var(--bg)', padding: '30px 0 50px' }}>
+      {latestProducts.length > 0 && (
+        <div style={{ background: 'var(--bg)', padding: '30px 0 50px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px' }}>
             
             {/* Centered Section Header with Lines */}
@@ -193,33 +184,20 @@ export default async function HomePage() {
                 letterSpacing: '1px'
               }}>
                 <span style={{ height: '2px', backgroundColor: '#e5e5e5', flex: 1, maxWidth: '150px' }}></span>
-                {section.title}
+                BIKE ACCESSORIES
                 <span style={{ height: '2px', backgroundColor: '#e5e5e5', flex: 1, maxWidth: '150px' }}></span>
               </h2>
-              <Link href={`/products`} style={{ fontSize: '13px', color: '#666', borderBottom: '1px solid #666', paddingBottom: '1px', textDecoration: 'none', transition: 'color 0.2s' }}>
+              <Link href="/products" style={{ fontSize: '13px', color: '#666', borderBottom: '1px solid #666', paddingBottom: '1px', textDecoration: 'none', transition: 'color 0.2s' }}>
                 View All
               </Link>
             </div>
 
-            {/* Horizontal Grid / Carousel */}
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'stretch',
-              gap: '20px', 
-              overflowX: 'auto',
-              paddingBottom: '20px', /* space for scrollbar */
-              scrollSnapType: 'x mandatory'
-            }}>
-              {section.products.map((product: any) => (
-                <div key={product.id} style={{ minWidth: '240px', maxWidth: '280px', flex: '0 0 auto', scrollSnapAlign: 'start', display: 'flex' }}>
-                  <ProductCard product={product} isWholesaler={isWholesaler} />
-                </div>
-              ))}
-            </div>
+            {/* Horizontal Grid / Carousel with Navigation Arrows */}
+            <ProductRowCarousel products={latestProducts} isWholesaler={isWholesaler} />
 
           </div>
         </div>
-      ))}
+      )}
 
       {/* ══════════════════════════════════════
           TRUST / VALUE PROPS (Chaudhry Style)

@@ -12,6 +12,7 @@ import { CartDrawerProvider } from '@/providers/CartDrawerProvider'
 import CartDrawer from '@/components/CartDrawer'
 import HeaderCartButton from '@/components/HeaderCartButton'
 import LiveSearchBar from '@/components/LiveSearchBar'
+import CategoryNav from '@/components/CategoryNav'
 
 export const dynamic = 'force-dynamic'
 
@@ -47,142 +48,8 @@ export default async function StorefrontLayout({ children }: { children: React.R
           </div>
         </div>
 
-        {/* ── Category Navigation Bar (Above Search Bar) ── */}
-        <style>{`
-          .all-categories-btn {
-            position: relative;
-          }
-          .all-categories-dropdown {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 280px;
-            max-height: 400px;
-            overflow-y: auto;
-            background-color: #fff;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            z-index: 1000;
-            flex-direction: column;
-          }
-          .all-categories-btn:hover .all-categories-dropdown {
-            display: flex;
-          }
-          .category-dropdown-link {
-            padding: 12px 24px;
-            color: var(--dk);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s, color 0.2s;
-            text-transform: none;
-            letter-spacing: normal;
-          }
-          .category-dropdown-link:hover {
-            background-color: #f9f9f9;
-            color: var(--accent);
-          }
-          .category-dropdown-link:last-child {
-            border-bottom: none;
-          }
-          .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 0 1.25rem;
-            height: 100%;
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.7);
-            white-space: nowrap;
-            text-decoration: none;
-            flex-shrink: 0;
-            transition: color 0.2s, background-color 0.2s;
-          }
-          .nav-link:hover {
-            color: var(--accent) !important;
-            background-color: rgba(255,255,255,0.03);
-          }
-          .nav-scroll-container {
-            display: flex;
-            align-items: stretch;
-            height: 52px;
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-          }
-          @media (max-width: 768px) {
-            .nav-scroll-container {
-              overflow-x: auto;
-              white-space: nowrap;
-              -webkit-overflow-scrolling: touch;
-              scrollbar-width: none;
-              -ms-overflow-style: none;
-            }
-            .nav-scroll-container::-webkit-scrollbar {
-              display: none;
-            }
-          }
-        `}</style>
-        <div style={{ backgroundColor: '#111', borderBottom: '1px solid rgba(255,255,255,0.1)', width: '100%', maxWidth: '100%' }}>
-          <div className="nav-scroll-container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
-
-            {/* All Categories */}
-            <div className="all-categories-btn" style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              backgroundColor: 'var(--accent)',
-              color: 'var(--accent-fg)',
-              padding: '0 1.75rem',
-              fontWeight: 800,
-              fontSize: '14px',
-              cursor: 'pointer',
-              flexShrink: 0,
-              whiteSpace: 'nowrap',
-              letterSpacing: '0.5px',
-              textTransform: 'uppercase'
-            }}>
-              <Menu size={18} /> ALL CATEGORIES
-              
-              <div className="all-categories-dropdown">
-                {categories?.filter(c => c.is_active && !c.parent_id).map(c => (
-                  <Link key={c.id} href={`/products?category=${c.slug}`} className="category-dropdown-link">
-                    {c.name}
-                  </Link>
-                ))}
-                {(!categories || categories.filter(c => c.is_active && !c.parent_id).length === 0) && (
-                  <div style={{ padding: '16px 24px', fontSize: '13px', color: 'var(--md)', textTransform: 'none', letterSpacing: 'normal' }}>
-                    No categories found
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Nav links */}
-            {[
-              { label: 'New Arrivals', href: '/products?sort=newest' },
-              { label: 'Helmets', href: '/products?category=helmets' },
-              { label: 'Engine Oils', href: '/products?category=engine-oils' },
-              { label: 'Exhausts', href: '/products?category=exhaust' },
-              { label: 'Lights', href: '/products?category=lights' },
-              { label: 'Tires', href: '/products?category=tires' },
-              { label: 'Accessories', href: '/products?category=accessories' },
-            ].map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="nav-link"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link href="/products?sale=true" className="nav-link" style={{ fontWeight: 700, color: '#f87171' }}>
-              🏷️ SALE
-            </Link>
-          </div>
-        </div>
+        {/* ── Category Navigation Bar (Interactive with mobile support) ── */}
+        <CategoryNav categories={categories || []} />
 
         {/* Main header row (Search Bar, Logo, Icons) */}
         <style>{`
