@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import { preload } from 'react-dom'
 
 const IMAGES = [
   'https://images.pexels.com/photos/1715184/pexels-photo-1715184.jpeg?auto=compress&cs=tinysrgb&w=1200',
@@ -13,6 +13,7 @@ const IMAGES = [
 ]
 
 export default function HeroSlider() {
+  preload(IMAGES[0], { as: 'image' })
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -56,20 +57,14 @@ export default function HeroSlider() {
             style={{
               position: 'absolute',
               inset: 0,
+              backgroundImage: `url("${src}")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
               opacity: currentIndex === idx ? 0.6 : 0,
               transition: 'opacity 1s ease-in-out',
               zIndex: 0,
             }}
-          >
-            <Image
-              src={src}
-              alt={`Hero Banner ${idx + 1} - Motorbike Accessories`}
-              fill
-              priority={idx === 0}
-              style={{ objectFit: 'cover' }}
-              sizes="(max-width: 768px) 100vw, 1400px"
-            />
-          </div>
+          />
         ))}
 
         {/* Content Overlay */}
