@@ -130,8 +130,10 @@ export default function HeroSlider() {
                 position: 'absolute',
                 top: 0, left: 0, bottom: 0,
                 backgroundColor: 'var(--accent)',
-                width: currentIndex === idx ? '100%' : (idx < currentIndex ? '100%' : '0%'),
-                transition: currentIndex === idx ? 'width 5s linear' : 'none'
+                width: '100%',
+                transformOrigin: 'left',
+                transform: currentIndex === idx ? 'scaleX(1)' : (idx < currentIndex ? 'scaleX(1)' : 'scaleX(0)'),
+                transition: currentIndex === idx ? 'transform 5s linear' : 'none'
               }} />
             </button>
           ))}
