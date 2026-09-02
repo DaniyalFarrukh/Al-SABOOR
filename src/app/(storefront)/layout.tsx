@@ -68,24 +68,35 @@ export default async function StorefrontLayout({ children }: { children: React.R
               padding: 12px 16px;
               justify-content: space-between;
             }
+            .logo-img {
+              max-height: 76px;
+            }
+          @media (max-width: 768px) {
+            .main-header-row {
+              flex-wrap: wrap;
+              gap: 0.5rem;
+              padding: 0.75rem 1rem !important;
+            }
             .search-bar-wrapper {
               order: 3;
               width: 100%;
               flex: 0 0 100%;
+              margin-top: 0.5rem;
+            }
+            .logo-img {
+              max-height: 50px !important;
             }
           }
         `}</style>
-        <div className="main-header-row" style={{ maxWidth: '1340px', margin: '0 auto' }}>
+        <div className="main-header-row" style={{ maxWidth: '1340px', margin: '0 auto', padding: '1rem 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
 
           {/* Logo */}
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 0, textDecoration: 'none' }}>
-            <Image
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', flexShrink: 1, textDecoration: 'none' }}>
+            <img
               src="/logo_wb.png"
               alt="AL SABOOR Traders"
-              width={245}
-              height={80}
-              style={{ objectFit: 'contain', maxHeight: '76px', width: 'auto' }}
-              priority
+              className="logo-img"
+              style={{ objectFit: 'contain', width: 'auto' }}
             />
           </Link>
 

@@ -124,7 +124,7 @@ export default async function HomePage() {
           PROMOTIONAL BANNERS
       ══════════════════════════════════════ */}
       <div style={{ background: 'var(--bg)', padding: '20px 0' }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '20px' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: '20px' }}>
           {/* Banner 1 */}
           <div style={{ 
             position: 'relative', 

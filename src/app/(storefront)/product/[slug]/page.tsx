@@ -120,7 +120,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
         <span style={{ color: 'var(--foreground)', fontWeight: 500 }}>{product.name}</span>
       </nav>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', marginBottom: '4rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '4rem', marginBottom: '4rem' }}>
         
         {/* Images */}
         <div>
@@ -209,7 +209,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
       {/* Specifications */}
       <div style={{ borderTop: '1px solid var(--border)', paddingTop: '3rem' }}>
         <h2 className="section-title">Specifications</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
           
           <div className="admin-card">
             <h3 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1rem' }}>Technical Specs</h3>
@@ -246,7 +246,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
           
           {/* Write Review Form */}
           <div className="admin-card">
