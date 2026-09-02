@@ -125,22 +125,24 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
         {/* Images */}
         <div>
           <div style={{ backgroundColor: 'var(--muted)', padding: '1.5rem', borderRadius: 'var(--radius)', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', aspectRatio: '1/1', position: 'relative', marginBottom: '1rem' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
+            <Image 
               src={primaryImage} 
               alt={product.name} 
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              style={{ objectFit: 'contain' }}
             />
           </div>
           {product.product_images && product.product_images.length > 1 && (
             <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
               {product.product_images.map((img: any, idx: number) => (
                 <div key={img.id || idx} style={{ width: '80px', height: '80px', flexShrink: 0, position: 'relative', borderRadius: '4px', overflow: 'hidden', border: img.image_url === primaryImage ? '2px solid var(--primary)' : '1px solid var(--border)' }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
+                  <Image 
                     src={img.image_url} 
                     alt={`${product.name} photo ${idx + 1}`}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    fill
+                    sizes="80px"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
               ))}

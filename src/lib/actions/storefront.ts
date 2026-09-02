@@ -2,12 +2,21 @@
 
 import { createClient } from '@/utils/supabase/server'
 
+import { unstable_cache } from 'next/cache'
+import { createClient as createPublicClient } from '@supabase/supabase-js'
+
 // -----------------------------------------------------------------------------
 // Homepage Actions
 // -----------------------------------------------------------------------------
 
 export async function getHomepageData() {
-  const supabase = await createClient()
+  const cachedFetch = unstable_cache(
+    async () => {
+      // Use a pure public client to avoid Next.js throwing cookie() dynamic rendering bailouts during caching
+      const supabase = createPublicClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      )
 
   // Run all queries concurrently to improve performance (and reduce timeout delays when DB is offline)
   const [featuredResponse, flashSalesResponse, categoriesResponse, latestProductsResponse] = await Promise.all([
@@ -58,17 +67,39 @@ export async function getHomepageData() {
       .limit(20)
   ])
 
-  return {
-    featured: featuredResponse.data || [],
-    flashSales: flashSalesResponse.data || [],
-    categories: categoriesResponse.data || [],
-    latestProducts: latestProductsResponse.data || []
-  }
+      return {
+        featured: featuredResponse.data || [],
+        flashSales: flashSalesResponse.data || [],
+        categories: categoriesResponse.data || [],
+        latestProducts: latestProductsResponse.data || []
+      }
+    },
+    ['homepage-data'],
+    { revalidate: 60, tags: ['homepage-data'] }
+  )
+
+  return cachedFetch()
 }
 
 // -----------------------------------------------------------------------------
 // Catalog / Search Actions
 // -----------------------------------------------------------------------------
+
+const getCachedMetadata = unstable_cache(
+  async () => {
+    const publicSupabase = createPublicClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    const [cats, brands] = await Promise.all([
+      publicSupabase.from('categories').select('id, name, parent_id, slug'),
+      publicSupabase.from('brands').select('id, name, slug')
+    ])
+    return { cats: cats.data || [], brands: brands.data || [] }
+  },
+  ['storefront-metadata'],
+  { revalidate: 300, tags: ['storefront-metadata'] }
+)
 
 export async function searchProducts(params: {
   q?: string;
@@ -105,16 +136,12 @@ export async function searchProducts(params: {
     const lowerQ = safeQ.toLowerCase()
     
     // Fetch all categories and brands to resolve subcategories and fuzzy matches
-    const [cats, brands] = await Promise.all([
-      supabase.from('categories').select('id, name, parent_id'),
-      supabase.from('brands').select('id, name')
-    ])
+    const { cats: allCats, brands: allBrands } = await getCachedMetadata()
     
     // Find matching brands
-    const brandIds = brands.data?.filter(b => b.name.toLowerCase().includes(lowerQ)).map(b => b.id) || []
+    const brandIds = allBrands.filter(b => b.name.toLowerCase().includes(lowerQ)).map(b => b.id) || []
 
     // Find matching categories and resolve ALL their subcategories
-    const allCats = cats.data || []
     const matchedCatIds = new Set<string>(
       allCats.filter(c => c.name.toLowerCase().includes(lowerQ)).map(c => c.id)
     )
@@ -156,7 +183,7 @@ export async function searchProducts(params: {
   // Category Filter
   if (params.category) {
     // Fetch all categories to resolve subcategories for the filter
-    const { data: allCategories } = await supabase.from('categories').select('id, slug, parent_id')
+    const { cats: allCategories } = await getCachedMetadata()
     
     if (allCategories && allCategories.length > 0) {
       const targetCategory = allCategories.find(c => c.slug === params.category)

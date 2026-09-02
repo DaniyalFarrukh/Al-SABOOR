@@ -75,11 +75,12 @@ export default function ProductCard({ product, isWholesaler }: { product: any, i
 
       {/* Product Image */}
       <div style={{ position: 'relative', aspectRatio: '1/1', backgroundColor: '#f8f8f8', overflow: 'hidden', padding: '8px' }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={primaryImage}
           alt={product.name}
-          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          fill
+          sizes="(max-width: 768px) 50vw, 250px"
+          style={{ objectFit: 'contain', padding: '8px' }}
         />
       </div>
 
