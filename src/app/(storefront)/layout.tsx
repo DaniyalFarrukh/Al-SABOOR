@@ -156,9 +156,20 @@ export default async function StorefrontLayout({ children }: { children: React.R
             color: var(--accent) !important;
             background-color: rgba(255,255,255,0.03);
           }
+          .nav-scroll-container {
+            display: flex;
+            align-items: stretch;
+            height: 54px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+          }
+          .nav-scroll-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+          }
         `}</style>
         <div style={{ backgroundColor: '#111', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', alignItems: 'stretch', height: '54px' }}>
+          <div className="nav-scroll-container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
             {/* All Categories */}
             <div className="all-categories-btn" style={{
