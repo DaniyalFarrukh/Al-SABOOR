@@ -603,40 +603,13 @@ button {
   margin: 0 auto;
 }
 
-/* Thumb-friendly Mobile Bottom Bar */
-.mobile-bottom-bar {
-  display: none;
-}
 
-.mobile-sticky-cart {
-  display: none;
-}
 
 @media (max-width: 430px) {
-  .mobile-bottom-bar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #111;
-    border-top: 1px solid #222;
-    z-index: 100;
-    padding: 0.5rem 1rem;
-    padding-bottom: env(safe-area-inset-bottom, 1rem);
-    justify-content: space-between;
-    align-items: center;
-    color: rgba(255,255,255,0.6);
-  }
-  
-  .storefront-layout {
-    padding-bottom: 5rem; /* space for bottom bar */
-  }
-
   .mobile-sticky-cart {
     display: flex;
     position: fixed;
-    bottom: 4rem; /* Sits exactly above the mobile bottom bar */
+    bottom: 0;
     left: 0;
     right: 0;
     background-color: var(--background);

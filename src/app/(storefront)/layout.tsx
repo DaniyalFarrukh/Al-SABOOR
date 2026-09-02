@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Search, ShoppingCart, User, Menu, Home, Grid, Bike, Phone, Mail, CheckCircle, Truck, Wrench, ShieldCheck, CreditCard } from 'lucide-react'
+import { Search, ShoppingCart, User, Menu, Bike, Phone, Mail, CheckCircle, Truck, Wrench, ShieldCheck, CreditCard } from 'lucide-react'
 import { getCart } from '@/lib/actions/cart'
 import { getUser } from '@/lib/actions/auth'
 import { getStoreSettings } from '@/lib/actions/settings'
@@ -11,7 +11,6 @@ import { getHomepageData } from '@/lib/actions/storefront'
 import { CartDrawerProvider } from '@/providers/CartDrawerProvider'
 import CartDrawer from '@/components/CartDrawer'
 import HeaderCartButton from '@/components/HeaderCartButton'
-import MobileCartButton from '@/components/MobileCartButton'
 import LiveSearchBar from '@/components/LiveSearchBar'
 
 export const dynamic = 'force-dynamic'
@@ -303,20 +302,6 @@ export default async function StorefrontLayout({ children }: { children: React.R
           © {new Date().getFullYear()} {storeName}. All rights reserved. | Pakistan's #1 Motorcycle Parts Platform
         </div>
       </footer>
-
-      {/* ── Mobile Bottom Navigation ── */}
-      <nav className="mobile-bottom-bar">
-        <Link href="/" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', color: 'var(--foreground)' }}>
-          <Home size={20} />
-          <span style={{ fontSize: '0.65rem' }}>Home</span>
-        </Link>
-        <Link href="/products" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem', color: 'var(--muted-foreground)' }}>
-          <Grid size={20} />
-          <span style={{ fontSize: '0.65rem' }}>Shop</span>
-        </Link>
-
-        <MobileCartButton cartItemCount={cartItemCount} />
-      </nav>
 
         {/* Floating WhatsApp Button */}
         <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000 }}>
