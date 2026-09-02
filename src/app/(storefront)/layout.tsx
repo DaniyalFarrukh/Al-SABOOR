@@ -59,23 +59,18 @@ export default async function StorefrontLayout({ children }: { children: React.R
           }
           .search-bar-wrapper {
             flex: 1;
-            min-width: 200px;
+            min-width: 0;
+            width: 100%;
           }
-          @media (max-width: 768px) {
-            .main-header-row {
-              flex-wrap: wrap;
-              gap: 1rem;
-              padding: 12px 16px;
-              justify-content: space-between;
-            }
-            .logo-img {
-              max-height: 76px;
-            }
+          .logo-img {
+            max-height: 76px;
+          }
           @media (max-width: 768px) {
             .main-header-row {
               flex-wrap: wrap;
               gap: 0.5rem;
               padding: 0.75rem 1rem !important;
+              justify-content: space-between;
             }
             .search-bar-wrapper {
               order: 3;
@@ -84,7 +79,7 @@ export default async function StorefrontLayout({ children }: { children: React.R
               margin-top: 0.5rem;
             }
             .logo-img {
-              max-height: 50px !important;
+              max-height: 48px !important;
             }
           }
         `}</style>
@@ -161,6 +156,16 @@ export default async function StorefrontLayout({ children }: { children: React.R
             border-bottom: none;
           }
           .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0 1.25rem;
+            height: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            white-space: nowrap;
+            text-decoration: none;
+            flex-shrink: 0;
             transition: color 0.2s, background-color 0.2s;
           }
           .nav-link:hover {
@@ -170,16 +175,21 @@ export default async function StorefrontLayout({ children }: { children: React.R
           .nav-scroll-container {
             display: flex;
             align-items: stretch;
-            height: 54px;
+            height: 52px;
             overflow-x: auto;
+            white-space: nowrap;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
           }
           .nav-scroll-container::-webkit-scrollbar {
             display: none; /* Chrome, Safari, Opera */
           }
         `}</style>
-        <div style={{ backgroundColor: '#111', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+        <div style={{ backgroundColor: '#111', borderTop: '1px solid rgba(255,255,255,0.1)', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
           <div className="nav-scroll-container" style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
             {/* All Categories */}
@@ -189,11 +199,12 @@ export default async function StorefrontLayout({ children }: { children: React.R
               gap: '10px',
               backgroundColor: 'var(--accent)',
               color: 'var(--accent-fg)',
-              padding: '0 2rem',
+              padding: '0 1.75rem',
               fontWeight: 800,
               fontSize: '14px',
               cursor: 'pointer',
               flexShrink: 0,
+              whiteSpace: 'nowrap',
               letterSpacing: '0.5px',
               textTransform: 'uppercase'
             }}>
@@ -219,6 +230,7 @@ export default async function StorefrontLayout({ children }: { children: React.R
               { label: 'Helmets', href: '/products?category=helmets' },
               { label: 'Engine Oils', href: '/products?category=engine-oils' },
               { label: 'Exhausts', href: '/products?category=exhaust' },
+              { label: 'Lights', href: '/products?category=lights' },
               { label: 'Tires', href: '/products?category=tires' },
               { label: 'Accessories', href: '/products?category=accessories' },
             ].map(link => (
@@ -226,22 +238,11 @@ export default async function StorefrontLayout({ children }: { children: React.R
                 key={link.href}
                 href={link.href}
                 className="nav-link"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '0 1.25rem',
-                  height: '100%',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: 'rgba(255,255,255,0.7)',
-                  whiteSpace: 'nowrap',
-                  textDecoration: 'none',
-                }}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/products?sale=true" className="nav-link" style={{ display: 'flex', alignItems: 'center', padding: '0 1.5rem', height: '100%', fontSize: '14px', fontWeight: 700, color: '#f87171', whiteSpace: 'nowrap', textDecoration: 'none', marginLeft: 'auto' }}>
+            <Link href="/products?sale=true" className="nav-link" style={{ fontWeight: 700, color: '#f87171' }}>
               🏷️ SALE
             </Link>
           </div>

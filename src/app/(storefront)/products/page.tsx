@@ -185,7 +185,7 @@ export default async function CatalogPage(props: { searchParams: Promise<{ [key:
         </aside>
 
         {/* Product Grid */}
-        <div style={{ flex: 1, minWidth: '300px' }}>
+        <div style={{ flex: 1, minWidth: 0, width: '100%' }}>
           {products.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '4rem 2rem', backgroundColor: 'var(--muted)', borderRadius: 'var(--radius)' }}>
               <p style={{ fontSize: '1.25rem', fontWeight: 500, marginBottom: '1rem' }}>No products found.</p>

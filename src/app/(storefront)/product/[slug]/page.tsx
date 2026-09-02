@@ -50,7 +50,7 @@ export default async function ProductDetailPage(props: { params: Promise<{ slug:
 
   const primaryImage = product.product_images?.find((img: any) => img.is_primary)?.image_url 
     || product.product_images?.[0]?.image_url 
-    || '/placeholder.png';
+    || '/placeholder.svg';
 
   const pricing = product.product_pricing?.[0] || product.product_pricing || {};
   const retailPrice = pricing.retail_price || 0;

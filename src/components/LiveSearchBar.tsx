@@ -55,8 +55,8 @@ export default function LiveSearchBar() {
   }
 
   return (
-    <div ref={wrapperRef} style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column' }}>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', width: '100%' }}>
+    <div ref={wrapperRef} style={{ flex: 1, width: '100%', maxWidth: '100%', position: 'relative', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
         <input
           type="text"
           value={query}
@@ -65,33 +65,39 @@ export default function LiveSearchBar() {
           placeholder="Search for exhausts, LEDs, helmets, gloves..."
           style={{
             flex: 1,
+            minWidth: 0,
+            width: '100%',
             backgroundColor: '#1f1f1f',
             border: '1px solid #333',
             borderRadius: '6px 0 0 6px',
-            padding: '0.65rem 1rem',
+            padding: '0.65rem 0.85rem',
             fontSize: '0.875rem',
             color: '#f1f5f9',
             outline: 'none',
             fontFamily: 'inherit',
+            boxSizing: 'border-box',
           }}
         />
         <button type="submit" style={{
           backgroundColor: 'var(--accent)',
           color: 'var(--accent-fg)',
           border: 'none',
-          padding: '0.65rem 1.5rem',
+          padding: '0.65rem 1.1rem',
           borderRadius: '0 6px 6px 0',
           fontWeight: 700,
           cursor: 'pointer',
           fontSize: '0.875rem',
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
           gap: '0.4rem',
           fontFamily: 'inherit',
           flexShrink: 0,
+          whiteSpace: 'nowrap',
+          boxSizing: 'border-box',
         }}>
           {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />} 
-          Search
+          <span>Search</span>
         </button>
       </form>
 
@@ -122,7 +128,7 @@ export default function LiveSearchBar() {
               {results.slice(0, 8).map((product) => {
                 const primaryImage = product.product_images?.find((img: any) => img.is_primary)?.image_url 
                                   || product.product_images?.[0]?.image_url
-                                  || '/placeholder.png'
+                                  || '/placeholder.svg'
                 const pricing = product.product_pricing?.[0]
                 const currentPrice = pricing?.sale_price || pricing?.retail_price || 0
 
