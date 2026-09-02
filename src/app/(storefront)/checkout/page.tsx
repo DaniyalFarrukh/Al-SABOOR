@@ -122,7 +122,7 @@ export default async function CheckoutPage() {
               {cartData.items.map((item: any) => (
                 <div key={item.id} style={{ display: 'flex', gap: '1rem' }}>
                   <div style={{ width: '64px', height: '64px', backgroundColor: 'var(--muted)', borderRadius: '4px', flexShrink: 0, position: 'relative' }}>
-                    <span style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: 'var(--primary)', color: 'white', width: '20px', height: '20px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 'bold' }}>
+                    <span style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: 'var(--primary)', color: 'white', width: '20px', height: '20px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 'bold', zIndex: 10 }}>
                       {item.quantity}
                     </span>
                     <img src={item.products?.product_images?.[0]?.image_url || '/placeholder.png'} alt={item.products?.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '4px' }} />
